@@ -7,7 +7,6 @@
     <title>Title</title>
 </head>
 <body>
-  <h2>${sampleDTO}</h2>
-  <h2>${page}</h2>
+  <h1>해당 URL은 존재하지 않습니다.</h1>
 </body>
 </html>
