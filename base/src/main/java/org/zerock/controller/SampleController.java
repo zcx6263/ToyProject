@@ -1,19 +1,19 @@
 package org.zerock.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.zerock.domain.BoardVO;
 import org.zerock.domain.SampleDTO;
 import org.zerock.domain.SampleDTOList;
 import org.zerock.domain.TodoDTO;
@@ -38,6 +38,19 @@ public class SampleController {
         log.info("dto : " + dto);
         
         return "doA";
+    }
+    
+    @RequestMapping("ex")
+    public String ex(BoardVO dto) {
+        return "/sample/tree";
+    }
+    @RequestMapping(value = "result", method = RequestMethod.POST)
+    public String result(@RequestBody List<BoardVO> dto) {
+        //log.info("test : " + list.size());
+        //log.info("test : " + dto.getTitle());
+        //log.info("test : " + dto.getContent());
+        log.info("test : " + dto);
+        return "/sample/test";
     }
 }
 
