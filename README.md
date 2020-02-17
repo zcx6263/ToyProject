@@ -14,11 +14,35 @@
 - Oracle
 - 스프링 시큐리티(Spring Security)
 
+**테스트 코드 junit**
+
+**Java Version**
+
 ## Part 1 : 시스템 개발 환경 구축
 
 ## Part 2 : 스프링 MVC 설정
 
+
+
+**root-context.xml**
+- 스프링에서 관리해야 하는 객체를 설정하는 설정파일 ( 빈 설정 파일이 동작)
+
+**servlet-context.xml**
+- 스프링 MVC의 jsp를 처리하는 설정 / 화면설정은 ViewResolver 라는 객체를 통해 이루어짐
+- /WEB-INF/views 폴더 이용 ( /WEB-INF 경로는 브라우저에서 직접 접근 못하고 반드시 controller를 이용하는 모델2 방식)
+- css, js 파일과 같이 정적 자원들 경로 resources라는 경로 지정 
+
+**web.xml**
+- DispatherServlet은 클라이언트 요청을 전달받은 서블릿
+- 컨트롤러나 뷰와 같은 스프링mvc의 구성요소를 이용하여 클라이언트에게 서비스 제공
+- /WEB-INF/web.xml 에 서블릿과 매핑 정보를 설정
+- 프로젝트 구동은 web.xml 에서 시작하여 root-context 경로가 설정
+
 ## Part 3 : 기본적인 웹 게시물 관리
+
+### 화면 처리
+
+- 부트스트랩 ( SB Admin2 ) 사용 / https://startbootstrap.com/themes/
 
 ## Part 4 : Rest 방식과 Ajax를 이용하는 댓글 처리
 

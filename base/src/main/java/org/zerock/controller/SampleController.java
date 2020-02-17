@@ -2,6 +2,9 @@ package org.zerock.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -38,6 +41,23 @@ public class SampleController {
         log.info("dto : " + dto);
         
         return "doA";
+    }
+    
+    @RequestMapping("drmCheck")
+    public String drmCheck(HttpServletRequest request, HttpServletResponse response) {
+        
+        log.info("drmCheck : " );
+        
+        request.setAttribute("bb", "123");
+        
+        return "/sample/drmCheck";
+    }
+    @RequestMapping("drmAuthResultPage")
+    public String drmAuthResultPage(HttpServletRequest request, HttpServletResponse response) {
+        
+        log.info("drmAuthResultPage : " + request.getParameter("num") + " " + request.getParameter("code"));
+        
+        return "/sample/drmAuthResultPage";
     }
     
     @RequestMapping("ex")
