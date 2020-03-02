@@ -1,5 +1,8 @@
 package org.zerock.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +26,17 @@ public class BoardController {
     private BoardService service;
     
     @GetMapping("/list")
-    public void list(Model model) {
+    public void list(Model model, HttpServletRequest request) {
         log.info("list");
+        
+        HttpSession session = request.getSession();
+        log.info("wonyong : " + session);
         model.addAttribute("list", service.getList());
+    }
+    
+    @GetMapping("/register")
+    public void getRegister(BoardVO board, RedirectAttributes rttr) {
+        
     }
     
     @PostMapping("/register")
@@ -38,7 +49,7 @@ public class BoardController {
         return "redirect:/board/list";
     }
     
-    @GetMapping("/get")
+    @GetMapping({"/get", "/modify"})
     public void get(@RequestParam("bno") Long bno, Model model)
     {
         log.info("/get");
