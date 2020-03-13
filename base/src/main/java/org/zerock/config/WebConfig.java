@@ -1,5 +1,6 @@
 package org.zerock.config;
 
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -24,6 +25,17 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
     
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        
         registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
+        
+        MultipartConfigElement multipartConfig = new MultipartConfigElement(
+                "/Users/jang-won-yong/dev/workspace/ToyProject/upload",20971520, 41943040, 20971520);
+        registration.setMultipartConfig(multipartConfig);
     }
+    
 }
+
+
+
+
+
