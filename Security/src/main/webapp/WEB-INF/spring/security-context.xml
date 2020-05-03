@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:security="http://www.springframework.org/schema/security" 
+xsi:schemaLocation="http://www.springframework.org/schema/security 
+http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    <!-- CustomAccessDeniedHandler를 빈으로 등록해서 사용  -->
+    <bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"></bean>
+    
+    <security:http>
+        <!-- 특정한 URI에 접근 할때 인터셉터를 이용해서 접근을 제한 하는 설정은 security:intercept-url을 이용한다. -->
+        <!-- pattern 과 access를 반드시 지정해야 한다. -->
+        <security:intercept-url pattern="/sample/all" access="permitAll" />
+        
+        <security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')" />
+        
+        <security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')" />
+        
+        <!-- 접근 제한 메시지 처리 AccessDeniedHandler 직접 구현 하거나 아래처럼 error-page를 지정 가능하다. -->
+        <!-- <security:access-denied-handler error-page="/accessError"/>  -->
+        
+        <!-- AccessDeniedHandler 인터페이스는 접근 제한이 되었을 때 쿠키나 세션에 특정한 작업을 하거나
+        HttpServletResponse 에 특정한 헤더 정보를 추가하는 등의 행위를 할 경우에는 직접 구현 하는 것이 좋다! -->
+        <security:access-denied-handler ref="customAccessDenied" />
+        
+        <!-- 기본 login 페이지 외에 커스텀 로그인 페이지 만들기  -->
+        <!-- <security:form-login /> -->
+        <security:form-login login-page="/customLogin" />
+        
+    </security:http>
+    
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <!-- 스프링 시큐리티 5버전부터 반드시 PasswordEncoder라는 존재를 이용하도록 변경되었기 때문에 포맷팅 처리를 지정해서 패스워드 인코딩을
+                지정해야 하지만, 현재는 테스트를 위해 패스워드 앞에 {noop} 를 추가  -->
+                <security:user name ="member" password="{noop}member" authorities="ROLE_MEMBER"/>
+                
+                <!-- 일반 시스템에서 userid는 스프링 시큐리티에서는 username에 해당 하므로 혼동하지 말것 name 이 admin 인 유저는 
+                ROLE_MEMBER와 ROLE_ADMIN 2가지 권한에 모두 접근 가능  -->
+                <security:user name ="admin" password="{noop}admin" authorities="ROLE_MEMBER, ROLE_ADMIN" />
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
+</beans>
+
+
+
